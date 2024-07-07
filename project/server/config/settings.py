@@ -51,7 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'server.config.urls'
-SESSION_ENGINE = 'server.config.simplesession'
+#SESSION_ENGINE = 'server.config.simplesession'
 
 TEMPLATES = [
     {
