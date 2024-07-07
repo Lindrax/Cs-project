@@ -9,8 +9,8 @@ from django.core import serializers
 from django.contrib.auth.decorators import user_passes_test
 
 
-
 @login_required
+
 def confirmView(request):
 	amount = request.session['amount']
 	to_username = request.session['to']
