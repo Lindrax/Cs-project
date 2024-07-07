@@ -42,6 +42,7 @@ def balanceView(request):
 		return JsonResponse({'username': 'anonymous', 'balance': 0})
 
 #@user_passes_test(lambda u: u.is_superuser)
+@login_required
 def accountView(request):
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM pages_account")
