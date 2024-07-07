@@ -71,6 +71,11 @@ INSERT INTO pages_account VALUES(2,250,3);
 INSERT INTO pages_account VALUES(3,42,4);
 CREATE TABLE IF NOT EXISTS "django_session" ("session_key" varchar(40) NOT NULL PRIMARY KEY, "session_data" text NOT NULL, "expire_date" datetime NOT NULL);
 INSERT INTO django_session VALUES('cn30d7b93cmt93vmr9t7nwa18612gdnf','YzRlNTM3MTZhODRiYjBlZmRkODhmYzYxYWE0Njc2ZTZjMTJhNTY1MDp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI5NjFhYTUwZWY1Y2NmYTNlY2QyM2IxN2UwZTM2ZjZlYjQ0MjE4YTk1IiwidG8iOiJhbGljZSIsImFtb3VudCI6LTEwfQ==','2020-07-31 22:17:45.498464');
+INSERT INTO django_session VALUES('session-12','.eJxVjMEOwiAQBf-FsyGulJV69O43NI9dkKqhSWlPxn83TXrQ68xk3mbAupRhbWkeRjUXQ-bwyyLkmeom9IF6n6xMdZnHaLfE7rbZ26Tpdd3bv0FBK9uWOQs49gnsPStl8CmjJ_LcH885BJc6FbhOlQCGeC-kJMlFDgTz-QLz6DiI:1sQPYE:IS7oj-UuzHeie7RHimMo4ssAzLnAx8z9Rufh-CUaKW0','2024-07-31 22:17:45.498464');
+INSERT INTO django_session VALUES('session-13','..eJxVjDsOwjAQBe_iGlnBv3gp6XMGa3e94ABypDipEHcnkVJA-2bmvVXCdSlpbTKnMauLMur0uxHyU-oO8gPrfdI81WUeSe-KPmjTw5TldT3cv4OCrWw1BGSkzvo-gCOfOUcQbwUZrEE5GxBBE4CdI-Kbww0aGzvfc3SBgvp8Afn-ODs:1sQPkz:j5v_P4UUKopJjtPEP9qOeoa4yGNLW6xcfm6f4qnOWHE','2024-07-31 22:17:45.498464');
+
+
+
 CREATE TABLE IF NOT EXISTS "auth_user" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "password" varchar(128) NOT NULL, "last_login" datetime NULL, "is_superuser" bool NOT NULL, "username" varchar(150) NOT NULL UNIQUE, "last_name" varchar(150) NOT NULL, "email" varchar(254) NOT NULL, "is_staff" bool NOT NULL, "is_active" bool NOT NULL, "date_joined" datetime NOT NULL, "first_name" varchar(150) NOT NULL);
 INSERT INTO auth_user VALUES(1,'pbkdf2_sha256$720000$x1xj6vf36OCOdBrbFsXGQp$Kr1SmJ72vHv+CdjupPaI7TUdBhBiaaZRqTuOXh/EOCI=','2020-07-17 20:01:08.616448',1,'admin','','admin@admin.gov',1,1,'2020-07-17 19:58:13.209291','');
 INSERT INTO auth_user VALUES(2,'pbkdf2_sha256$180000$Kh1Dq2UDGO17$mzsX0Mp2mTYuMXkfrzUCCj3xZDjWOAdblmH0sDo+DIQ=','2020-07-17 22:17:40.896304',0,'bob','','',0,1,'2020-07-17 20:01:47.462580','');

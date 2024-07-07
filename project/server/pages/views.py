@@ -10,46 +10,43 @@ from django.contrib.auth.decorators import user_passes_test
 
 
 
-
 @login_required
 def confirmView(request):
-    # Assume request.session['amount'] and request.session['to'] are set
 	amount = request.session['amount']
 	to_username = request.session['to']
-	# Vulnerable to SQL injection
 	with connection.cursor() as cursor:
 			cursor.execute(f"SELECT id FROM auth_user WHERE username = '{to_username}'")
 			to_user_id = cursor.fetchone()[0]
-
-	#0; DROP TABLE pages_account; --
-	# Vulnerable to SQL injection
-	print(to_user_id)
-	print(amount)
 	with connection.cursor() as cursor:
 			cursor.executescript(f"UPDATE pages_account SET balance = balance + {amount} WHERE user_id = {to_user_id}")
-	print(request.user)
 	request.user.account.balance -= int(amount)
 	request.user.account.save()
 
+	#fixed query
+	"""amount = request.session['amount']
+	to = User.objects.get(username=request.session['to'])
+
+	request.user.account.balance -= amount
+	to.account.balance += amount
+
+	request.user.account.save()
+	to.account.save()"""
+
 	return redirect('/')
 
-#@login_required fix
+#@login_required
 def balanceView(request):
 	if request.user.is_authenticated:
 		return JsonResponse({'username': request.user.username, 'balance': request.user.account.balance})
 	else:
 		return JsonResponse({'username': 'anonymous', 'balance': 0})
 
-#@user_passes_test(lambda u: u.is_superuser) fix
+#@user_passes_test(lambda u: u.is_superuser)
 def accountView(request):
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM pages_account")
         accounts = cursor.fetchall()
-
-        # Fetch column names
         columns = [col[0] for col in cursor.description]
-
-        # Convert list of tuples to list of dictionaries
         accounts_list = [dict(zip(columns, account)) for account in accounts]
 
     return JsonResponse({'accounts': accounts_list})

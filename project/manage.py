@@ -9,7 +9,8 @@ import django
 
 SERVER_DIR = 'server'
 
-def set_admin_password():
+#set up for configuring an admin password
+"""def set_admin_password():
     print('Admin password is set to default, change this before continuing')
     password = input("Enter a new admin password: ")
     hashed = make_password(password)
@@ -27,7 +28,7 @@ def set_admin_password():
     except sqlite3.Error as e:
         print(f"Error updating password: {e}")
     finally:
-        conn.close()
+        conn.close()"""
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', SERVER_DIR + '.config.settings')
@@ -40,10 +41,10 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
 
-    # Run the admin password setup before any Django command
-    if len(sys.argv) > 1 and sys.argv[1] == 'runserver' and not os.getenv('RUN_MAIN'):
+    # Run the admin password setup
+    """if len(sys.argv) > 1 and sys.argv[1] == 'runserver' and not os.getenv('RUN_MAIN'):
         django.setup()
-        set_admin_password()
+        set_admin_password()"""
 
     execute_from_command_line(sys.argv)
 

