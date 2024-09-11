@@ -22,12 +22,21 @@
         </form>
 		
         <h2>Transfer money</h2>
+        <form action="/" method="GET">
+            <span>Search account:</span><br/>
+            <input type="text" name="search" value="{{ user_input }}"/><br/>
+            <input type="submit" value="Search"/>
+        </form>
+    
+        <!-- Display user input directly to introduce XSS vulnerability -->
+        <p>Search term: {{ user_input | safe }}</p>
 
         <form action='transfer/' method="GET">
             <span>To:</span><br/>
             <select name="to">
 			{% for account in accounts %}
-                <option value="{{account.user.username}}">{{account.user.username}}</option>
+                
+                <option value="{{account.user}}">{{account.user}}</option>
 			{% endfor %}
             </select><br/>
 

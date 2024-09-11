@@ -7,6 +7,7 @@ from .models import Account
 from django.db import connection
 from django.core import serializers
 from django.contrib.auth.decorators import user_passes_test
+from django.utils.html import escape
 
 
 @login_required
@@ -61,8 +62,19 @@ def transferView(request):
 
 @login_required
 def homePageView(request):
-	accounts = Account.objects.exclude(user_id=request.user.id)
-	return render(request, 'pages/index.html', {'accounts': accounts})
+    # Get the search input from the user (unsafe)
+    user_input = request.GET.get('search', '')
+
+    
+
+
+    if user_input:
+        accounts = Account.objects.filter(user__username__icontains=user_input)
+    else:
+        accounts = Account.objects.exclude(user_id=request.user.id)
+    #sanitized_input = escape(user_input)
+    #return render(request, 'pages/index.html', {'accounts': accounts, 'user_input': sanitized_input})
+    return render(request, 'pages/index.html', {'accounts': accounts, 'user_input': user_input})
 
 def htmlView(request):
 	return render(request, 'pages/csrf.html')
