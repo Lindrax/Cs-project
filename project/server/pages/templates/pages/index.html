@@ -28,7 +28,7 @@
             <input type="submit" value="Search"/>
         </form>
     
-        <!-- Display user input directly to introduce XSS vulnerability -->
+
         <p>Search term: {{ user_input | safe }}</p>
 
         <form action='transfer/' method="GET">
